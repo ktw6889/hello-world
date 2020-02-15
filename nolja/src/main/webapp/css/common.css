@@ -1,0 +1,161 @@
+@charset "utf-8";
+@import url(layout.css);
+
+@-ms-viewport { width: device-width; } 
+@-o-viewport { width: device-width; } 
+@viewport { width: device-width; } 
+
+/* Hangeul Nanum Font */
+
+@font-face {
+ font-family: 'NanumSquare';
+ src: url(../font/NanumSquareR.eot);
+ src: url(../font/NanumSquareR.eot?#iefix) format('embedded-opentype'),
+      url(../font/NanumSquareR.woff) format('woff'),
+      url(../font/NanumSquareR.ttf) format('truetype');
+}
+
+/** reset **/ 
+* { margin:0; padding:0; /*line-height:117%;*/ }
+body,p,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,table,th,td,form,fieldset,legend,input,textarea,button,select {margin:0;padding:0}
+body {line-height:1.0;background:#fff;color:#222;font-family:'NanumSquare', 'Malgun Gothic', '맑은고딕',serif,Verdana,Helvetica,Tahoma,sans-serif;font-weight:normal;-webkit-text-size-adjust:none;word-wrap:break-word;font-size:13px}
+h1,h2,h3,h4,h5,h6 {font-size:1em;font-weight:normal}
+div,h1,h2,h3,h4,h5,h6,dl,dt,dd,ul,li,ol,th,td,
+p,blockquote,form,fieldset,input,legend {margin:0;padding:0;}
+legend {display:none}
+table, td, th {color:#333;}
+table {border-collapse:collapse; border-spacing:0; table-layout:fixed;}
+img, fieldset, iframe { border:0 none; }
+img { -ms-interpolation-mode: bicubic;  filter: progid:DXimageTransform.Microsoft.AlphaimageLoader(...); width:100%;} 
+dl,ul, ol, li { list-style:none; padding:0; margin:0; }
+img, input, select, textarea { vertical-align:middle; color:#333333; font-size:1em;}
+textarea {width:100%; padding:10px 0px 10px 7px; height:54px; border:1px solid #d0d0d0; margin:3px 0px; overflow:auto; resize:none;}
+hr {display:none;}    
+
+/** IME Setting */
+a {text-decoration:none;cursor:project01_approval.htmler;color:#008889; cursor:pointer;}
+a:hover {text-decoration:none;}/** color:#2aa3a4; */
+a, a:active,a:focus, button{outline: none}
+a:link { text-decoration:none }
+a:visited { text-decoration:none; }
+a:active { text-decoration:none;}
+a:hover { text-decoration:none; }
+em, address { font-style:normal; }
+button, .button {cursor:pointer; _cursor /**/:hand; }
+label {margin:0 10px 0 0}
+form { padding:0; border:0 none;}
+* html input {margin:-1px 0;}  /* ie6 ie7 input 1px */
+*:first-child+html input {margin:-1px 0} /* ie6 ie7 input 1px */
+text {color:#333; font-size:2em; }
+select {border: 1px solid #d1d1d1;}
+:focus {outline: 0}
+input.searchMd_input:focus, input.list_input:focus  {border: 2px solid #d1d1d1;}
+textarea:focus {border: 1px solid #d1d1d1;}
+input.mradio, input[type=radio]	{width:14px; height:14px; margin:0 6px;}
+
+/** common **/
+
+.text_ellipsis {display:block; text-overflow:ellipsis !important;white-space:nowrap !important;overflow:hidden !important;}
+td.text_ellipsis {display:table-cell; text-overflow:ellipsis;white-space:nowrap;overflow:hidden;}
+a.text_ellipsis {display:block;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;}
+span.text_ellipsis {display:block;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;}
+
+.basic_table .inputTd input.text_only	{border:1px solid #fff; padding-left:0px;}
+
+.relative	{position:relative !important;}
+.absolute	{position:absolute !important;}
+.fixed		{position:fixed !important;}
+
+.text_gray	{color:#999;}
+.text_blue	{color:#249192;}
+.text_red	{color:#b30000;}
+.text_orange	{color:#f29919;}
+.bold	{font-weight:bold;}
+
+.tC { text-align:center !important;}
+.tL { text-align:left !important;}
+.tR { text-align:right !important;}
+
+.fR { float:right !important; }
+.fL { float:left !important; }
+.fn { float:none!important }
+
+.vT { vertical-align:top !important; }
+.vM { vertical-align:middle !important; }
+.vB { vertical-align:bottom !important; }
+
+.w20	{width:20px;}
+.w30	{width:30px;}
+.w40	{width:40px;}
+.w60	{width:60px;}
+.w80	{width:80px;}
+.w100	{width:100px;}
+.w120	{width:120px;}
+.w200	{width:200px;}
+.w300	{width:300px;}
+.w400	{width:400px;}
+.wbtn	{width:74px;}
+.w45p	{width:45% !important;}
+.w10p	{width:10% !important;}
+
+
+.br_none		{border-right:none !important;}
+.bl_none		{border-left:none !important;}
+.bt_none		{border-top:none !important;}
+.bb_none		{border-bottom:none !important;}
+
+.pz {padding:0 !important}
+.ptz {padding-top:0 !important}
+.pt3 {padding-top:3px !important}
+.pt4 {padding-top:4px !important}
+.pt5 {padding-top:5px !important}
+.pt10 {padding-top:10px !important}
+.pt20 {padding-top:20px !important}
+.ptb20 {padding-top:20px !important; padding-bottom:20px !important}
+.pd5 {padding-left:5px;}
+.pd12	{padding:12px !important;}
+.pl20 {padding-left:20px !important}
+.pl10 {padding-left:10px !important}
+.pr5 {padding-right:5px !important}
+.pr10 {padding-right:10px !important}
+.pr20 {padding-right:20px !important}
+.mz {margin:0 !important}
+.mr10 {margin-right:10px !important}
+.mr5 {margin-right:5px !important}
+.mr7 {margin-right:7px !important}
+.mr20 {margin-right:20px !important}
+.ml5 {margin-left:5px !important}
+.ml10 {margin-left:10px !important}
+.ml20 {margin-left:20px !important}
+.ml30 {margin-left:30px !important}
+.ml40 {margin-left:40px !important}
+.mb2 {margin-bottom:2px !important}
+.mb5 {margin-bottom:5px !important}
+.mb10 {margin-bottom:10px !important}
+.mb15 {margin-bottom:15px !important}
+.mb20 {margin-bottom:20px !important}
+.mb25 {margin-bottom:25px !important}
+.mb35 {margin-bottom:35px !important}
+.mtz {margin-top:0 !important}
+.mt5 {margin-top:5px !important}
+.mt7 {margin-top:7px !important}
+.mt10 {margin-top:10px !important}
+.mt20 {margin-top:20px !important}
+.mt30 {margin-top:30px !important}
+.mt75 {margin-top:75px !important}
+.mt5p {margin-top:5% !important}
+.mt7p {margin-top:7% !important}
+.mt10p {margin-top:10% !important}
+.mt20p {margin-top:20% !important}
+.mt30p {margin-top:30% !important}
+.mt75p {margin-top:75% !important}
+.mbm15 {margin-bottom:-15px !important}
+.mt_1 {margin-top:-1px !important} 
+.mt_5 {margin-top:-5px !important} 
+.mt_10 {margin-top:-10px !important} 
+.mt_20 {margin-top:-20px !important}
+.mbm20 {margin-bottom:-20px !important}
+.mtm10 {margin-top:-10px !important}
+.mtm15 {margin-top:-15px !important}
+.mtm30 {margin-top:-30px !important}
+.p15 {padding:15px !important}

@@ -1,0 +1,483 @@
+/* intro */
+html, body {width:100%; height:100%;}
+html>/**/body {overflow-y:auto} 
+/* body.mobile {width:1080px; height:1845px;}  */
+/* .mobile #wrap {position:relative; width:1080px; height:1845px;} */
+#wrap {position:relative;width:100%;height:100%;min-height:100%;}
+
+/* intro slide */
+#slidebox {position:relative; width:100%; height:100%; overflow:hidden; white-space:nowrap; }
+#slidebox ul#slider { list-style:none; margin:0; padding:0;}
+#slidebox ul li {position:absolute; width:100%;	height:100%;}
+#slidebox ul li img {width:100%; height:100%;}
+#slidebox ul#slider .slider_bar	{position:absolute; bottom:2em; left:0; right:0; text-align:center;}
+#slidebox ul#slider .slider_bar span	{display:inline-block; margin:0 2px; border:2px solid #fff; width:5px; height:5px; border-radius:5px; opacity: 0.8;}
+#slidebox ul#slider .slider_bar span.on	{background:#fff;}
+#slidebox ul#slider .start	{position:absolute; bottom:4em; left:50%; width:6.4em; height:6.4em; margin-left:-3.2em; background:url(../images/start_btn.png) no-repeat 0 0; background-size:100% auto;}
+#slidebox ul#slider .signup {position:absolute; bottom:3.5em; width:64%; z-index:10; left:18%; height:2.4em; line-height:2.4em; text-align:center; font-size:20px; border-radius:400px; background-color:#fbd767;}
+
+
+.header_type	{top:0px; left:0px; right:0px; height:51px; background-color:#2aa3a4; font-size:17px; font-weight:bold; color:#fff; text-align:center; z-index:999;}
+.header_type_map	{top:0px; left:0px; right:0px; height:51px; background-color:#2aa3a4; font-size:17px; font-weight:bold; color:#fff; text-align:center; z-index:999;line-height:48px;}
+.leftbtn	{position:absolute; left:9px; top:9px;}
+.rightbtn	{position:absolute; right:9px; top:9px;}
+.btn_goback		{display:inline-block; width:20px; height:36px; background:url(../images/btn_goback.png) no-repeat 0 8px; background-size: 90%;}
+.btn_home		{display:inline-block; width:20px; height:36px; background:url(../images/btn_gohome.png) no-repeat 0 8px; background-size: 90%;}
+.btn_set		{display:inline-block; width:20px; height:36px; background:url(../images/btn_goset.png) no-repeat 0 8px; background-size: 90%;}
+.btn_teamSign	{display:inline-block; width:20px; height:36px; background:url(../images/btn_teamSign.png) no-repeat 0 8px; background-size: 90%;}
+.btn_teamSign.inTxt	{width:auto; padding-left:25px; font-size:11px; line-height:34px; background-position:left 8px; background-size:30%;}
+.title		{position:absolute; left:33px; top:18px; right:40px;}
+.title.logo	{top:6px; height:38px;}
+.title.logo	img {max-height:100%; width:auto}
+.footer_type	{bottom:0px; left:0px; right:0px; height:51px; background-color:#008384; font-size:17px; font-weight:bold; color:#fff; text-align:center; cursor:pointer;}
+.footer_type .block1	{position:relative; top:16px;}
+
+.header_type02	{top:0px; left:0px; right:0px; height:102px; background-color:#2aa3a4; font-size:16px; font-weight:bold; color:#fff; text-align:center; z-index:999;}
+.header_type02 .fbtn	{top:51px; height:51px; width:100%; background-color:#fff; color:#aaa;}
+.block1	{position:relative; display:block; width:100%; float:left; height:100%;}
+.block2	{position:relative; display:block; width:50%; float:left; height:100%;}
+.block3	{position:relative; display:block; width:33.333%; float:left; height:100%;}
+.block4	{position:relative; display:block; width:25%; float:left; height:100%;}
+.block5	{position:relative; display:block; width:20%; float:left; height:100%;}
+.block6	{position:relative; display:block; width:16.666%; float:left; height:100%;}
+.fbtn .block {position:absolute; top:0px; left:0px; right:0px; bottom:0px; border:1px solid #e0e0e0; padding-top:15px;}
+.fbtn .block.on	{color:#008384;  border-bottom:4px solid #008384;}
+.btn_cancel	{float:left; margin:1.5% 0 0 4%; height:40px; width:44%; border-radius:2px; background:#ffffff; font-size:17px; font-weight:bold; line-height:40px;}
+.btn_cancel a	{color:#666666;}
+.btn_confirm		{float:left; margin:1.5% 0 0 4%; height:40px; width:44%; border-radius:2px; background:#fbd767; font-size:17px; font-weight:bold; line-height:40px;}
+.btn_confirm a		{color:#267272;}
+
+.alert_meseage	{position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; background: #000; opacity: 0.7; border-radius: 10px; border: 1px solid #333; z-index:99;}
+.alert_meseage .meseage	{position:absolute; top:40%; left:0px; width:100%; font-size:17px; font-weight:bold; text-align:center; line-height:150%; color: #fff;}
+.alert_meseage .meseage font	{color:#ffae00; font-size:34px;}
+.alert_meseage .meseage p	{font-size:12px;}
+
+.alert_meseage .meseage .team_alert	{padding-top:100px; background:url(../images/btn_teamSign_alert.png) no-repeat center top; background-size: 22%;}
+
+
+/* intro */
+.intro	{position:relative;width:100%;height:100%; background-color:#2aa3a4;}
+.intro_logo	{position:absolute; display:block; top:16%; width:60%; left:20%;}
+.intro_text	{position:absolute; display:block; top:51%; width:100%; font-size:17px; line-height:140%; color:#fff; text-align:center;}
+.intro_text	p	{font-size:1.2em; font-weight:bold}
+.intro_bg	{position:absolute; bottom:0px; z-index:0;}
+.intro .signup {position:absolute; top:77%; width:64%; z-index:10; left:18%; height:6%; border-radius:400px; background-color:#fbd767;}
+.intro .signup a	{position:relative; display:block; height:72%; padding-top:4.5%; color:#257272; text-align:center; font-size:17px; font-weight:bold;}
+.intro .login	{position:absolute; top:85%; width:64%; z-index:11; left:18%; height:6%; border-radius:400px; background-color:#000; opacity:0.6; filter: Alpha(opacity=650)}
+.intro .login a	{position:relative; display:block; height:72%; padding-top:4.5%; color:#fff; text-align:center; font-size:17px; font-weight:bold;}
+
+.intro.loginblock	{font-size:13px;}
+.intro.loginblock .intro_logo	{top:13%;}
+.intro.loginblock .intro_text	{top:31%; display:none;}
+.intro.loginblock .login	{top:75%;}
+.loginblock .login_box	{position:absolute; display:block; top:46%; left:5%; right:5%; font-size:14px; line-height:140%; color:#fff; text-align:center; z-index:12;}
+.loginblock .login_box .input_text	{height:36px; width:95%; margin-bottom:2%; padding:0 2.5%; border-radius:4px;}
+.loginblock .login_box p	{width:100%; text-align:left; padding-bottom:2%; border-bottom: 1px solid #fff;}
+.loginblock .login_box p.auto	{border-bottom:0px; padding:2% 0;}
+.loginblock .login_btn	{position:absolute; display:block; top:83%; width:100%; text-align:center; z-index:13;}
+.loginblock .login_btn a	{padding:0 1%; color:#fff; }
+
+.loginblock.idblock	.intro_text	{top:15%;}
+.loginblock.idblock .login_box	{top:25%;}
+.id_confirm	{display:block; height:40px; width:95%; margin-bottom:2%; padding:0 2.5%; border-radius:4px; background:#fbd767; color:#267272; font-size:17px; font-weight:bold; line-height:40px;}
+.id_info	{position:relative; display:block; margin-top:5%; font-size:13px; line-height:140%; color:#fff; text-align:center; z-index:13; border-bottom: 1px solid #fff; border-top: 1px solid #fff;}
+.loginblock .login_box .id_info p	{text-align:center; padding:3% 0; border-bottom:0px;}
+.loginblock .login_box .id_info p.user_id	{font-size:17px; font-weight:bold;}
+
+
+/* signup */
+.sign	{position:relative; padding:58px 7px; font-size:13px;}
+.sign_input	{padding:10px 10px 0px 0px;}
+.basic_table {width:100%; color:#333; font-weight:bold; table-layout:fixed;}
+.basic_table th {height:31px; border:0px solid #fff; background:#fff;}
+.basic_table td {height:31px; border:0px solid #fff; background:#fff;}
+.basic_table td p	{line-height: 26px;}
+.basic_table .inputTd	{padding: 2px 14px 0 7px;}
+.basic_table .inputTd input[type=text], .basic_table .inputTd input[type=password]  {height:26px; width:100%; border: 1px solid #d1d1d1; padding: 0 0 0 7px;}
+.basic_table .inputTd input.tR	{ padding: 0 7px 0 0;}
+.basic_table .selectTd	{padding: 1px 5px 0px 7px;}
+.basic_table .selectTd.all	{padding: 1px 5px 0px 0px;}
+.basic_table .selectTd select	{height:26px; width:100%; border: 1px solid #d1d1d1; padding: 0 0 0 3px;}
+.basic_table .textareaTd	{padding: 1px 14px 0 7px;}
+.basic_table .textareaTd textarea	{width:100%; border: 1px solid #d1d1d1; padding: 7px 0 7px 7px; min-height:26px;}
+
+.basic_table td.textover	{text-overflow:ellipsis; white-space:nowrap; overflow:hidden;}
+.basic_table td.notinput {padding:2px 5px;}
+.basic_table td.indiv		{padding:5px;}
+
+.fbtn	{position:relative; display:block;}
+.fbtn01	{position:absolute; right:-9px; top:50%; margin-top:-14px; min-width:26px; height:26px; background-color:#e8e8e8; border: 1px solid #d1d1d1; cursor:pointer;}
+.fbtn02	{position:absolute; right:18px; top:50%; margin-top:-14px; min-width:26px; height:26px; background-color:#e8e8e8; border: 1px solid #d1d1d1; cursor:pointer;}
+.fbtn01.textbtn	{line-height:26px; color:#bbb; padding:0 7px;}
+.fbtn01.photo	{width:26px; height:26px; background:#e8e8e8 url(../images/btn_photo.png) no-repeat 4px 4px; background-size: 70%;}
+.fbtn01.reset	{width:26px; height:26px; background:#e8e8e8 url(../images/btn_reset.png) no-repeat 4px 4px; background-size: 70%;}
+.fbtn02.search	{width:26px; height:26px; background:#e8e8e8 url(../images/btn_search.png) no-repeat 4px 4px; background-size: 70%;}
+.fbtn01.calendar, .fbtn02.calendar	{width:26px; height:26px; background:#e8e8e8 url(../images/btn_calendar.png) no-repeat 4px 4px; background-size: 70%;}
+.fbtn01.point, .fbtn02.point	{width:26px; height:26px; background:#e8e8e8 url(../images/btn_point.png) no-repeat 4px 4px; background-size: 70%;}
+
+.sign_check	{position:relative; padding:7px 16px;}
+.sign_check  li	{padding: 6px 0;}
+.sign_check  li a	{float:right; text-decoration:underline;}
+.sign_checkbox	{font-size:3em; width:14px; height:14px; margin: 0 4px 0 0;}
+
+.sign_con_text	{position:relative; padding:4%; font-size:1em; line-height:125%; border:1px solid #2aa3a4;}
+.sign_detail	{position: fixed; top:51px; bottom:51px; left:0px; right:0px; background:#000; opacity:0.5;}
+.sign_detail_text	{position: fixed; top:61px; bottom:101px; left:10px; right:10px; background:#fff; border:1px solid #2aa3a4; padding:4%; font-size:1em; line-height:125%; overflow-y:auto;}
+.sign_detail_close	{position: fixed; width:40px; height:40px; right:10px; bottom:61px; background:url(../images/btn_signclose.png) no-repeat 0 0; background-size: 100%; cursor:pointer;}
+
+/* myteam */
+.myteam	{position:relative; padding:102px 4px 0px 4px; font-size:13px; background-color:#e6e6e6;}
+.team_detail	{position:relative; font-size:13px; padding:106px 4px 4px 4px;}
+.title.team	{top:8px; height:43px;}
+.title.team li	{display:block; float:left; line-height:38px;}
+.title .team_logo	{width:33px; height:33px; border-radius:400px; margin-right:2%; border:2px solid #fff; background:#f0f0f0 url(../images/btn_photo.png) no-repeat center center; background-size:100% 100%;}
+.team_detail .team_greet, .team_detail .team_info	{position:relative; margin-top:2%; border-bottom:2px solid #ddd; padding-bottom:1%;}
+.team_greet .user_index	{position:relative; padding:0 2%;}
+.team_greet .user_index li	{display:block; float:left; line-height:42px; font-weight:bold}
+.team_greet .user_photo	{width:38px; height:38px; border-radius:400px; margin-right:2%; border:2px solid #fff; background:#f0f0f0 url(../images/btn_photo.png) no-repeat center center; background-size:100% 100%;}
+.team_greet .text	{clear:both; position:relative; padding:1% 2% 1% 5%; line-height:135%;}
+.team_info .info_basic	{position:relative; margin:3% 0;}
+.team_info .info_title	{display:inline-block; background:url(../images/36font_title_01.png) no-repeat left center; background-size:14%; padding-left:14px; font-weight:bold}
+.team_info	{padding:2% 2% 0 2%;}
+.team_info .info_text	{display:inline-block;}
+.team_info .info_age	{position:relative; left:3%; height:30px; width:92%; color:#fff; font-size:11px;}
+.team_info .info_age .age	{position:absolute; top:7px; left:0px; right:0px; height:18px; background:#f0f0f0; border:2px solid #ddd; border-radius:80px;}
+.team_info .info_age li	{position:absolute; top:7px; left:0px; border-radius:80px; height:18px;}
+.team_info .info_age li.age10	{background:#9dc6d8; border:2px solid #84abbc; z-index:90;}
+.team_info .info_age li.age20	{background:#00b3ca; border:2px solid #1f9faf; z-index:80; left:1px;}
+.team_info .info_age li.age30	{background:#7dd0b6; border:2px solid #68baa0; z-index:70; left:1px;}
+.team_info .info_age li.age40	{background:#597ca5; border:2px solid #486587; z-index:60; left:1px;}
+.team_info .info_age li.age50	{background:#d2b29b; border:2px solid #c59879; z-index:50; left:1px;}
+.team_info .info_age li.age00	{background:#f0f0f0; border:2px solid #ddd; z-index:40; left:1px; color:#666;}
+.team_info .info_age li	em {position:absolute; top:5px; right:6px; font-weight:bold;}
+
+.info_map	{position: absolute; right: 2%; top:50%; margin-top:-14px; height: 30px; width: 30px; background: url(../images/myteam_map.png) no-repeat left 0; background-size: 100%; text-indent: -99999px;}
+.text_map	{position: absolute; right: 2%; top:-3px; border-radius: 10px; font-size: 0.6em; color: #fff; padding: 4px 7px 4px 7px; background: #2aa3a4;}
+
+
+.team_posting	{position:relative; border-bottom:1px solid #ddd; padding:2% 0;}
+.team_posting .user_index	{position:relative; padding:0 2%; height:46px;}
+.team_posting .user_index li	{display:block;float:left;line-height:20px;font-weight:bold;}
+.team_posting .user_index .name	{position:relative; min-width:50%;}
+.team_posting .user_index.team .name   {font-size:16px; color: #2aa3a4; top:6px;}
+.team_posting .user_index.team .name font   {font-size:12px; color: #666; margin-left:4px;}
+.team_posting .user_index.team .rank	{position:relative; width:50%; top:3px;}
+.team_posting .user_index .name.only 	{top:23%;}
+.team_posting .user_index .time	{margin-left:2%; font-weight:normal; color:#999;}
+.team_posting .user_index .post_title	{position:relative; width:75%;}
+.team_posting .user_index .post_phone	{position:relative; width:50%; background:url(../images/posting_phone.png) no-repeat 2px 2px; background-size:9%; padding-left:24px;}
+.team_posting .user_index .post_type	{position:absolute; right:2%; top:6px; height:30px; width:26px; background:url(../images/list_icon.png) no-repeat left 0; background-size:2000% !important; text-indent:-99999px;}
+.team_posting .user_index .post_type.notice	{background:url(../images/list_icon.png) no-repeat left 0;}
+.team_posting .user_index .post_type.posting	{background:url(../images/list_icon.png) no-repeat -32px 0;}
+.team_posting .user_index .post_type.new	{background:url(../images/list_icon.png) no-repeat -66px 0;}
+.team_posting .user_index .post_type.setting	{background:url(../images/list_icon.png) no-repeat -132px 0;}
+.team_posting .user_index .post_type.com	{background:url(../images/list_icon.png) no-repeat -98px 0;}
+.team_posting .user_index .post_type.good	{background:url(../images/good.png) no-repeat 0 0; background-size:100% !important; height:41px; width:80px; line-height:50px; color:#fff; text-align:right; padding-right:6px; top:0px;}
+.team_posting .user_index .post_type.phone	{background:url(../images/myteam_phone.png) no-repeat 0 0;  height:36px; width:36px; background-size:100% !important;}
+.team_posting .user_index .post_type.pmap	{background:url(../images/myteam_map.png) no-repeat 0 0;  height:36px; width:36px; background-size:100% !important;}
+.team_posting .user_index .post_type.teaminfo	{background:url(../images/myteam_info.png) no-repeat 0 0;  height:36px; width:36px; background-size:100% !important;}
+
+.team_posting .user_index .good_play	{position:absolute; right:13%; top:6px; height:30px; line-height:30px; width:70px; padding-right:6px; text-align:right; color:#4f0000; background:url(../images/list_icon.png) no-repeat -173px 0; background-size:720%;}
+.good_count	{position:relative; height:28px; padding:3% 10px;}
+.good_count .base	{display:inline-block; width:28px; height:28px; background:url(../images/list_icon.png) no-repeat -313px 0; background-size:1800%;}
+.good_count .base.on	{background-position: -351px 0px;}
+
+.team_posting .user_photo	{position:relative; width:36px; height:36px; border-radius:400px; margin-right:2%; border:3px solid #fff; background:#f0f0f0 url(../images/btn_photo.png) no-repeat center center; background-size:100% 100%;}
+.user_index.team .user_photo	{width:42px; height:42px; border:2px solid #2aa3a4;}
+.team_posting .user_photo em.new	{width:20px; height:20px; position:absolute; right:-6px; bottom:-6px;  background:url(../images/new.png) no-repeat 0 0; background-size:100%;}
+.team_posting .text	{clear:both; position:relative; padding:1% 2% 1% 5%; line-height:135%; display:none;}
+.team_posting .text img	{min-width:100%;}
+.team_posting .text.on	{display:block;}
+
+.member13 .team_posting	{padding:1% 0;}
+.member13 .team_posting .user_index	{height:32px; font-size:11px}
+.member13 .team_posting .user_photo	{width:28px; height:28px;}
+.member13 .team_posting .user_index li	{line-height:17px;}
+.member13 .team_posting .user_index .post_phone	{padding-left:20px;}
+.member13 .team_posting .user_index li.run_game	{line-height:26px;}
+.member13 .run_game	{top:4px; height:26px; width:26px; padding-right:25px; background: url(../images/run_game_gray.png) no-repeat right center; background-size:auto 100%; text-indent:0px;}
+.member13 .run_game.blue	{color:#0070ba; background: url(../images/run_game_blue.png) no-repeat right center; background-size:auto 100%;}
+.member13 .run_game.green	{color:#259d01; background: url(../images/run_game_green.png) no-repeat right center; background-size:auto 100%;}
+.member13 .run_game.red		{color:#c02000; background: url(../images/run_game_red.png) no-repeat right center; background-size:auto 100%;}
+
+.more			{position:relative; height:40px; margin:2% 0; padding:0 20px 0 10px; text-align:center;}
+.more .more_btn		{padding-right:5%; background:url(../images/btn_more.png) no-repeat right 0px; background-size:25%;}
+
+.team_photo	{position:relative; border:1px solid #d0d0d0; background-color:#e6e6e6; min-height:154px; text-align:center;}
+.team_photo	p	{margin-top:14px;}
+.team_index	{position:relative; background-color:#e6e6e6; height:26px; line-height:26px; border-radius:0 0 4px 4px;}
+.team_index p {display:inline-block; margin-right:3%;}
+.team_index	.fL	{width:63%; padding-left:2%;}	
+.team_index	.fL p	{background:url(../images/36font_title_01.png) no-repeat left center; padding-left:14px; background-size:auto 40%;}
+.team_index	.fR	{width:33%; padding-right:2%; text-align:right;}
+.team_search	{margin:1% 0; }
+.team_search input	{position:relative; padding-left:10%; background:#fff url(../images/btn_search_bg.png) no-repeat 9px 9px; background-size:7%; color:#999; border:1px solid #d0d0d0; 
+						height:40px; width:91%; border-radius:4px; font-size:1em; line-height:40px;}
+.team_search.btn_plus	{}
+.search_btn		{display:none; background:#2aa3a4; color:#fff; text-align:center;  border-radius:4px; font-weight:bold; height:40px; line-height:40px;}
+.team_search.btn_plus input	{width:75%;}
+.team_search.btn_plus .search_btn	{display:block; float:right; width:14%; }
+
+.more_team			{position:relative; height:16px; margin-top:2%; padding:0 7px 0 3px;}
+.more_team .more_title	{float:left; font-weight:bold; color:#666;}
+.more_team .more_btn		{float:right; padding-right:4.5%; background:url(../images/btn_more.png) no-repeat right 0px; background-size:25%;}
+
+.team_tab		{position:relative; height:34px; margin:1% 0; text-align:center; font-weight:bold; color:#999; font-size:13px;}
+.team_tab .block	{display:block; border-radius:32px; width:95%; height:32px; margin:0 auto; background:#fff; border:1px solid #d0d0d0; line-height:32px;}
+.team_tab .block.on	{background:#2aa3a4; border-color:#2aa3a4; color:#fff;}	
+.game .team_tab		{background:#fff; margin:0px; padding:1% 0;}
+
+.team_game	{position:relative; background-color:#fff; height:176px; border-radius:4px; border:1px solid #d0d0d0;  margin:1% 0 0 0;}
+.game_box .team_game	{margin-top:1%;}
+.game_box .team_game .Dminus	{position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; background: #000; opacity: 0.7; border-radius: 4px; border: 1px solid #333;}
+.Dminus_text	{position:absolute; top:0px; left:0px; width:100%; font-size:17px; font-weight:bold; text-align:center; line-height:170px; color: #fff;}
+.Dminus_text font	{color:#ffae00; font-size:28px;}
+.team_game .game_info	{position:relative; background-color:#f5f5f5; border-bottom:0px solid #d0d0d0; border-radius:4px 4px 0 0; text-align:center; line-height:130%; padding:1.5% 0;}
+.team_game .game_block	{position:relative; height:75%; background:url(../images/game_block_vs.png) no-repeat center 15%; background-size:22%;}
+.game_block .game_team	{position:relative; display:block; float:left; width:50%; text-align:center;}
+.game_block .game_team img	{width:40%; margin-top:6%;}
+.game_block .game_team .img	{width:40%; margin-top:6%; height:71px; display:inline-block; border:3px solid #2aa3a4; background:url(../images/player_noimg.png) no-repeat center center; border-radius:300px; background-size:100% 100%;}
+.game_block .game_team .team_title		{margin-top:3px; font-size:17px; font-weight:bold; color:#2aa3a4;}
+.game_block .game_team .team_sub		{margin-top:3px; font-size:12px; font-weight:bold; color:#666;}
+
+.myteam.notTeam	{position:absolute; top:0px; right:0px; bottom:0px; left:0px; padding:0px; text-align:center;}
+.notTeam_info	{position:relative; margin-top:45%; line-height:160%; color:#666; padding-top:114px; background:url(../images/notTeam_info.png) no-repeat center 0; background-size:25%;}
+.make_team		{display:inline-block; height:40px; width:95%; margin-bottom:2%; border-radius:4px; background:#2aa3a4; font-size:17px; font-weight:bold; line-height:40px;}
+.make_team a	{color:#ffffff; padding-left:30px; background:url(../images/btn_make_bg.png) no-repeat 0 0;  background-size:20%;}
+.search_team	{display:inline-block; height:40px; width:95%; margin-bottom:2%; border-radius:4px; background:#ffffff; font-size:17px; font-weight:bold; line-height:40px;}
+.search_team a	{color:#666666; padding-left:30px; background:url(../images/btn_search_bg.png) no-repeat 0 0;  background-size:24%;}
+.intro_fs		{display:inline-block; height:40px; width:95%; margin-bottom:2%; border-radius:4px; background:#fbd767; font-size:17px; font-weight:bold; line-height:40px;}
+.intro_fs a		{color:#267272;}
+
+.team_detail.btn_plus	{padding-bottom:51px;}
+.plus_box	{position: relative; margin-top:4px; background-color: #e6e6e6; height:40px; line-height:120px; border-radius: 4px 4px 0 0;}
+.plus_box .file_plus	{float:left; width:40px; height:40px; background:url(../images/plus_file_photo.png) no-repeat 0 0;  background-size:200%;}
+.plus_box .photo_plus	{float:left; width:40px; height:40px; background:url(../images/plus_file_photo.png) no-repeat -40px 0;  background-size:200%;}
+
+.teambox	{position:relative; background-color:#fff; height:127px; margin-top:4px;}
+.teambox .teamlogo		{float: left; width: 23%; height: 81px; margin: 20px 2%; border:3px solid #2aa3a4; background:url(../images/player_noimg.png) no-repeat center center ;border-radius:300px; background-size:100% 100%;}
+.teambox .teaminfo		{float:left; width:56%; height:127px; }
+.teambox .teaminfo .team_title		{margin-top:12px; font-size:17px; font-weight:bold; color:#2aa3a4;}
+.teambox .teaminfo .team_sub		{margin-top:3px; font-size:12px; font-weight:bold; color:#666;}
+.teambox .teaminfo .team_info		{margin-top:5px; font-size:11.5px; line-height:120%; font-weight:normal; color:#333;}
+.teambox .teaminfo .team_rank		{margin-top:7px; font-size:12px; font-weight:bold; color:#2aa3a4;}
+.teambox .teambtn		{float:left; width:14%; height:127px; text-align:center;}
+.teambox .teambtn li	{display:inline-block;}
+.teambox .teambtn .teambtn_sign		{clear:both; margin-top:35%; width:40px; height:40px; background:url(../images/myteam_sign.png) no-repeat center center;  background-size:93%;}
+.teambox .teambtn .teambtn_phone	{clear:both; margin-top:15%; width:40px; height:40px; background:url(../images/myteam_phone.png) no-repeat center center;  background-size:93%;}
+
+.teambox.Rank	{height:98px;}
+.teambox.Rank .team_rank	{position:relative; float:left; width:23%; height:100%; letter-spacing:-5px; font-size:5em; font-weight:bold; color:#aaa; text-align:center; line-height:98px;}
+.teambox.Rank img	{position:absolute; right:2%; bottom:2%; width:55%;}
+
+.teambox.Rank .teamlogo		{float:left; width:13.5%; height:48px; margin:24px 2%;}
+.teambox.Rank .teaminfo		{float:left; width:55%; height:98px; }
+.teambox.Rank .teaminfo .team_title		{margin-top:10px; font-size:17px; font-weight:bold; color:#2aa3a4;}
+.teambox.Rank .teaminfo .team_rank, .teambox.Rank .teambtn		{display:none;}
+
+.plus_btn	{right:14px; bottom:18px; border:2px solid #ffdd55; border-radius:100%; width:62px; height:62px; box-shadow:0 2px 6px #999; background:#ffdd55 url(../images/plus_btn_bg.png) no-repeat center center; background-size:100%;}
+.write_btn	{right:14px; bottom:18px; border:2px solid #ffdd55; border-radius:100%; width:62px; height:62px; box-shadow:0 2px 6px #999; background:#ffdd55 url(../images/plus_btn_bg.png) no-repeat center center; background-size:100%;}
+.plus_human	{right:14px; bottom:18px; border:2px solid #ffdd55; border-radius:100%; width:62px; height:62px; box-shadow:0 2px 6px #999; background:#ffdd55 url(../images/plus_human_bg.png) no-repeat center center; background-size:100%;}
+.plus_game	{right:14px; bottom:18px; border:2px solid #ffdd55; border-radius:100%; width:62px; height:62px; box-shadow:0 2px 6px #999; background:#ffdd55 url(../images/plus_game_bg.png) no-repeat center center; background-size:100%;}
+
+/* messenger */
+.messenger	{position:relative; padding:106px 4px 51px 4px; background-color:#e6e6e6;}
+.messengerbox	{position:relative; min-height:474px; background-color:#dff1f1; padding:1% 2%; font-size:13px; line-height:130%; color:#333;}
+.messengerbox .others	{position:relative; margin:8px 0;}
+.messengerbox .others .others_photo	{width:40px; height:40px; margin-right:4px; position:absolute; top:0px; left:0px; border-radius: 300px; overflow:hidden;}
+.messengerbox .others .others_text		{max-width:75%; position:relative; top:0px; left:40px; width:auto;}
+.messengerbox .others .others_text li.user	{font-size:12px; color:#333; margin-left:12px; padding:2px; display:block; background:none; font-weight:bold; box-shadow:0px 0px 0px #999;}
+.messengerbox .others .others_text li	{position:relative; font-size:12px; color:#333; margin-left:15px; padding:8px; display:inline-block; background:#fff;  text-overflow:ellipsis; white-space:normal; border-radius:6px; box-shadow:0px 2px 4px #999;}
+.messengerbox .others .others_text li em	{width:20px; height:25px; position:absolute; top:3px; left:-10px; background:url(../images/messenger_other_bg.png) no-repeat 0 0; background-size:55%;}
+.messengerbox .others .others_text li span.info_read	{position:absolute; bottom:14px; right:-32px; font-size:10px; color:#f29919; font-weight:bold; }
+.messengerbox .others .others_text li span.info_time	{position:absolute; bottom:1px; right:-32px; font-size:10px; color:#666; font-weight:bold;}
+.messengerbox .mytext	{position:relative; margin:10px 0; text-align:right}
+.messengerbox .mytext .mytext_text		{max-width:80%; position:relative; top:0px; right:-2px; width:auto; display:inline-block;}
+.messengerbox .mytext .mytext_text li	{position:relative; font-size:12px; color:#333; margin-right:14px; padding:8px; display:inline-block; background:#ffdd54;  text-overflow:ellipsis; white-space:normal; border-radius:6px; box-shadow:0px 1px 2px #999;}
+.messengerbox .mytext .mytext_text li em	{width:20px; height:25px; position:absolute; top:3px; right:-18px; background:url(../images/messenger_my_bg.png) no-repeat 0 0; background-size:55%;}
+.messengerbox .mytext .mytext_text li span.info_read	{position:absolute; bottom:14px; left:-32px; font-size:10px; color:#f29919; font-weight:bold; }
+.messengerbox .mytext .mytext_text li span.info_time	{position:absolute; bottom:1px; left:-32px; font-size:10px; color:#666; font-weight:bold;}
+
+.messengerbox .date_line	{position:relative; background:url(../images/dashed.png) repeat-x 0 8px; background-size: 2%; text-align:center; height:16px; margin:4px 0;}
+.messengerbox .date_line p	{display:inline-block; background-color:#dff1f1; padding:0px 1%;}
+
+.messenger_talk	{}
+.messenger_talk input	{position:absolute; top:6px; left:6px; bottom:6px; width:78%; background:#fff; font-size:17px; padding-left:8px; padding-bottom:4px;}
+.messenger_talk .messenger_talk_btn	{position:absolute; right:8px; bottom:7px; width:12%; height:40px; background:url(../images/messenger_talk_btn.png) no-repeat 0 0; background-size:100%;}
+
+.messenger_talk.icon2 input	{width:70%;}
+.messenger_talk.icon2 .icon2_1	{position:absolute; right:14%; bottom:6px; width:8%; height:40px; background-size:100% auto;}
+.messenger_talk.icon2 .icon2_2	{position:absolute; right:10px; bottom:6px; width:8%; height:40px; background-size:100% auto;}
+.icon_search	{background:url(../images/btn_search02.png) no-repeat 0 center;}
+.icon_close		{background:url(../images/btn_close.png) no-repeat 0 center;}
+
+.messenger_talk.iconV2 input	{width:82%;}
+.messenger_talk.iconV2 .icon2_1	{position:absolute; right:16%; bottom:6px; width:7%; height:40px; background-size:100% auto;}
+.messenger_talk.iconV2 .icon2_2	{position:absolute; right:3%; bottom:6px; width:7%; height:40px; background-size:100% auto;}
+.iconV2 .icon_search	{background:url(../images/btn_search_bg.png) no-repeat 0 center;}
+.iconV2 .icon_close		{background:url(../images/btn_close.png) no-repeat 0 center;}
+
+.fbtn em.count	{position:absolute; top:11%; right:10%; border-radius:10px; font-size:0.6em; color:#fff; padding:4px 7px 4px 7px; background:#fe6a50;}
+
+/* game */
+.game	{position:relative; padding:51px 4px 51px 4px; background-color:#e6e6e6; min-height: 74%;}
+.game.btnless	{padding-bottom:10px;}
+.run_game	{position:absolute; right:2%; top:6px; height:30px; width:30px; background:url(../images/list_icon.png) no-repeat -257px 0; background-size:1800%; text-indent:-99999px;}
+.result .game_block .game_team img	{width:40%; margin-top:6%;}
+.result .result_win		{position: absolute; top:5%; border-radius: 300px; font-size: 0.6em; color:#267272; width:34px; height:34px; line-height:34px; font-weight: bold; font-size:17px; background:#fbd767;}
+.result .result_lose	{position: absolute; top:5%; border-radius: 300px; font-size: 0.6em; color:#fff; width:34px; height:34px; line-height:34px; font-weight: bold; font-size:17px; background:#999;}
+.result .result_count	{margin-top:3px; font-size: 18px; font-weight: bold;}
+.result .result_count.win	{ color: #b90000;}
+.result .result_count.lose	{ color: #999999;}
+.result .game_team .left	{left:23%; }
+.result .game_team .right	{right:23%; }
+
+.run_game.on	{background-position:-298px 0px;}
+.game_status	{position: relative; min-height: 62px;}
+.game_status .block6	{text-align:center; font-size:12px; font-weight:bold; color:#999; padding:12% 0 2% 0;}
+.game_status .status01	{background:url(../images/game_bg.png) no-repeat -6% 18%;  background-size:580%;}
+.game_status .status02	{background:url(../images/game_bg.png) no-repeat 16% 18%;  background-size:580%;}
+.game_status .status03	{background:url(../images/game_bg.png) no-repeat 38% 18%;  background-size:580%;}
+.game_status .status04	{background:url(../images/game_bg.png) no-repeat 61% 18%;  background-size:580%;}
+.game_status .status05	{background:url(../images/game_bg.png) no-repeat 83% 18%;  background-size:580%;}
+.game_status .status06	{background:url(../images/game_bg.png) no-repeat 106% 18%;  background-size:580%;}
+.game_status .status01.on, .game_status .status02.on, .game_status .status03.on, .game_status .status04.on,
+.game_status .status05.on, .game_status .status06.on{background-image:url(../images/game_bg_on.png); color:#2aa3a4; background-size:580%;}
+.game_select .basic_table	{font-size:13px;}
+.game_position	{position:relative; height:441px; padding:0 10px; background:url(../images/ground_bg.png) no-repeat 0 0; background-size:100% 100%;}
+.game_position.intab	{height:400px;}
+.game_position li {position:relative; height:24%;}
+.player_box	{text-align:center;}
+.player_box .player_photo	{border:3px solid #fff; border-radius:400px; width:44px; height:44px; margin:8px auto 4px auto; background:url(../images/player_noimg.png) no-repeat center center; background-size:100% 100%;}
+.player_box	select {font-size:1em; color:#666; height:20px; width:64px; padding-left:4px; }
+
+.game_box	{background-color:#fff; min-height:465px; padding: 1% 2%; font-size:13px; line-height: 130%; color: #333;}
+.game.btnless .game_box	{min-height:510px;}
+td .team_posting	{border:0px;}
+td .team_posting .user_index .post_type	{top:7px; right:0;}
+
+.gnb_area	{position:relative; width:100%; height:144px; background:url(../images/main_gnb.png) no-repeat 0 0;}
+.gnb_area.sub02	{background:url(../images/sub02_gnb.png) no-repeat 0 0;}
+.gnb_area.sub03	{background:url(../images/sub03_gnb.png) no-repeat 0 0;}
+.gnb_area.sub04	{background:url(../images/sub04_gnb.png) no-repeat 0 0;}
+.gnb_area.sub05	{background:url(../images/sub05_gnb.png) no-repeat 0 0;}
+.gnb_area.sub06	{background:url(../images/sub06_gnb.png) no-repeat 0 0;}
+.gnb_area.sub07	{background:url(../images/sub07_gnb.png) no-repeat 0 0;}
+.gnb_area.sub08	{background:url(../images/sub08_gnb.png) no-repeat 0 0;}
+.gnb_area.sub09	{background:url(../images/sub09_gnb.png) no-repeat 0 0;}
+.gnb_area .menu	{position:absolute; left:0px; top:0px; width:144px; height:144px; cursor:pointer; background:url(../images/icon.png) no-repeat 0 0;}
+.gnb_area .title	{position:absolute; left:144px; right:144px; top:0px; color:#fff; text-align:center; line-height:144px; font-size:5em;}
+.gnb_area .title font	{font-size:0.5em;}
+.gnb_area .home	{position:absolute; right:0px; top:0px; width:144px; height:144px; cursor:pointer; background:url(../images/icon.png) no-repeat -144px 0;}
+
+.sub_area	{position:absolute; left:0px; top:0px; width:80%; height:100%; z-index:999;}
+.sub_area .sub_area_bg	{position:absolute; left:0px; right:0px; top:0px; bottom:0px; background:#000; opacity:.8; z-index:-1;}
+.sub_area .menu	{width:144px; height:144px; cursor:pointer; background:url(../images/icon.png) no-repeat 0 0;}
+.sub_area .menu01, .sub_area .menu02, .sub_area .menu03, .sub_area .menu04,
+.sub_area .menu05, .sub_area .menu06, .sub_area .menu07, .sub_area .menu08,
+.sub_area .menu09	{cursor:pointer; width:90%; border-bottom:1px solid #ddd; color:#fff; line-height:144px; font-size:17px; padding:0 0 0 10%; }
+
+.content	{position:absolute; left:0px; right:0px; top:144px; bottom:0px;}
+.content .main_bg, .btn_img	{width:100%; height:100%;}
+.content .main_btn	{position:absolute; left:15px; right:15px; bottom:90px;}
+.content .main_btn .main_btn01	{float:left; width:32%; height:274px; margin:5px; cursor:pointer;}
+.content .main_btn .main_btn02	{float:left; width:32%; height:274px; margin:5px; cursor:pointer;}
+.content .main_btn .main_btn03	{float:left; width:32%; height:274px; margin:5px; cursor:pointer;}
+.content .main_btn .main_btn04	{float:left; width:32%; height:274px; margin:5px; cursor:pointer;}
+.content .main_btn .main_btn05	{float:left; width:32%; height:274px; margin:5px; cursor:pointer;}
+.content .main_btn .main_btn06	{float:left; width:32%; height:274px; margin:5px; cursor:pointer;}
+.content .main_btn .main_btn07	{float:left; width:32%; height:274px; margin:5px; cursor:pointer;}
+.content .main_btn .main_btn08	{float:left; width:32%; height:274px; margin:5px; cursor:pointer;}
+.content .main_btn .main_btn08_v2	{float:left; width:65%; height:274px; margin:5px; cursor:pointer;}
+.content .main_btn .main_btn09	{float:left; width:32%; height:274px; margin:5px; cursor:pointer;}
+
+.sub_bg	{position:relative; width:100%;}
+.sub_content	{position:relative; width:100%; background:url(../images/sub_bg01.png) no-repeat 0 0; min-height:300px;}
+.sub01 .sub_content	{background:url(../images/sub_bg01.png) no-repeat 0 0;}
+.sub02 .sub_content	{background:url(../images/sub_bg02.png) no-repeat 0 0;}
+.sub03 .sub_content	{background:url(../images/sub_bg03.png) no-repeat 0 0;}
+.sub04 .sub_content	{background:url(../images/sub_bg04.png) no-repeat 0 0;}
+.sub05 .sub_content	{background:url(../images/sub_bg05.png) no-repeat 0 0;}
+.sub06 .sub_content	{background:url(../images/sub_bg06.png) no-repeat 0 0;}
+.sub07 .sub_content	{background:url(../images/sub_bg07.png) no-repeat 0 0;}
+.sub08 .sub_content	{background:url(../images/sub_bg08.png) no-repeat 0 0;}
+.sub09 .sub_content	{background:url(../images/sub_bg09.png) no-repeat 0 0;}
+.content_box	{position:relative; left:2%; width:96%; background:#fff; min-height:800px;}
+.sub_title	{position:relative; width:100%; font-family:'SECGCWM'; color:#fff; text-align:center; line-height:114px; font-size:13px;}
+
+.sub_title02	{margin:50px 40px 20px 40px; height:40px; line-height:48px; padding-left:50px; background:url(../images/sub_title02.png) no-repeat 0 0; font-family:'SECGCWM'; font-size:13px;}
+.sub_title03	{font-family:'SECGCWM'; font-size:2.5em; margin:20px 40px; height:30px; line-height:30px; padding-left:20px; background:url(../images/sub_title03.png) no-repeat 0 8px;}
+.sub_title04	{font-family:'SECGCWM'; color:#fff; text-align:center; font-size:13px; margin:20px 40px; height:80px; line-height:80px; background:#683501; border-top:2px solid #4a2500; border-bottom:2px solid #4a2500;}
+.sub_con03	{font-family:'SECGCWM'; font-size:2.5em; margin:20px 40px; line-height:51px; padding:0 0 20px 40px; border-bottom:1px solid #bbb;}
+.sub_btn	{font-family:'SECGCWM'; font-size:13px;}
+.sub_btn_bg	{width:181px; height:181px; margin:20px 0 20px 40px;}
+
+.bottom	{position:relative; width:100%}
+.bottom_left	{position:absolute; left:2%; top:30px; }
+.bottom_left li	{font-family:'SECGCWM'; color:#fff; line-height:2em; font-size:2em;}
+.bottom_left li.phone	{font-family:'SECGCWM'; padding-left:40px; color:#fff; line-height:1.5em; font-size:13px; background:url(../images/bottom_phone.png) no-repeat 0 6px;}
+.bottom_left li.copy	{font-family:'SECGCWM'; color:#aaa; line-height:1.5em; font-size:1.5em;}
+.bottom_right	{position:absolute; right:2%; top:40px; }
+
+.block50	{position:relative; width:50%;}
+
+.listMd {position:relative; border-top:2px solid #565a5d; border-bottom:1px solid #565a5d; overflow:hidden; margin:40px 40px 20px 40px;}
+.list_basic { width:100%; table-layout:fixed; text-align:center; empty-cells:show; font-size:2.5em;}
+.list_basic th { background:#ebebeb; color:#333; border-bottom:1px solid #d6d6d6; border-right:1px solid #d6d6d6; height:80px;  font-weight:bold; text-align:left; padding:0 20px;}
+.list_basic td { text-align:left; padding:10px; border-bottom:1px solid #d6d6d6; border-right:1px solid #d6d6d6; color:#333; height:60px; display:table-cell; text-overflow:ellipsis; white-space:nowrap; overflow:hidden;}
+.list_basic td.inputTd	{padding-right:32px}
+.inputbox	{ height:60px; padding: 0 10px;  border: 1px solid #d0d0d0; width:100%; font-size:1em;}
+.selectbox	{ height:60px; border: 1px solid #d0d0d0; font-size:1em;}
+
+.btn	{position:relative; text-align:center; margin-bottom:40px;}
+.btn .blue_btn	{display: inline-block; margin:10px; padding: 20px 30px; color: #FFF; background-color: #0078d5; border:none; font-size:13px; border-radius:4px;}
+.btn .basic_btn	{display: inline-block; margin:10px; padding: 20px 30px; color: #666; background-color: #ddd; border:none; font-size:13px; border-radius:4px;}
+
+
+/* �޴� */
+.set_block	{position:fixed; top:0px; right:0px; width:100%; min-height:100%; z-index:999;}
+.set_menu	{position:fixed; top:0px; right:0px; width:90%; min-height:100%; background:#292c34; z-index:1000; }
+.set_menu .header	{position:fixed; height:51px; width:100%; background:#292c34; z-index:1001;} 
+.set_menu .leftbtn	{left:5%;}
+.set_menu .title	{top:18px; left:13%; color:#fff; font-size:17px; font-weight:bold;}
+.set_menu .set_content {position:relative; color:#fff; font-size:17px; padding:51px 1% 1% 10%;}
+.set_menu .menu	{position:relative; min-height:52px; border-bottom:1px solid #4a4d54; font-size:16px;}
+.set_menu .menu .set_title	{padding-top:18px;}
+.set_menu .menu .set_go		{position:absolute; right:4%; top:15px; width:22px; height:24px; cursor:pointer; background:url(../images/btn_go.png) no-repeat 0 0; background-size:100%;}
+.set_menu .menu .onoffswitch	{position:absolute; right:3%; top:10px; height:20px; width: 90px;}
+.set_menu .menu .sub_text	{font-weight:normal; color:#bbb; font-size:13px; line-height:150%; padding:10px 0 17px 0;}
+.set_menu .menu	{}
+
+.onoffswitch {position: relative; width: 160px; -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;}
+.onoffswitch-checkbox {display: none;}
+.onoffswitch-label {display: block; overflow: hidden; cursor: pointer; border:3px solid #FFFFFF; border-radius: 80px;}
+.onoffswitch-inner {display: block; width: 200%; margin-left: -100%;transition: margin 0.3s ease-in 0s;}
+.onoffswitch-inner:before, .onoffswitch-inner:after {display: block; float: left; width: 50%; height: 26px; padding: 0; line-height: 27px; 
+	font-size: 16px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold; box-sizing: border-box; }
+.onoffswitch-inner:before { content: "ON"; padding-left: 14px; background-color: #34A7C1; color: #FFFFFF;}
+.onoffswitch-inner:after { content: "OFF"; padding-right: 14px; background-color: #EEEEEE; color: #999999; text-align: right;}
+.onoffswitch-switch { display: block; width: 9px; height:9px; margin: 6px; background: #34A7C1; position: absolute; top: 4px; bottom: 0; right: 62px; 
+	border: 1px solid #34A7C1; border-radius: 80px; transition: all 0.3s ease-in 0s; }
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {margin-left: 0;}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {right: 14px;  background:#fff; border:1px solid #fff;}
+
+.map_wrap #menu_wrap	{margin:0px; top:2%; left:2%; right:2%; width:auto; border-radius:4px; background: rgba(42, 164, 164, 0.5);}
+.map_wrap #menu_wrap .option	{font-size:1em;}
+.map_wrap #menu_wrap .option input[type=text]	{height: 36px; }
+.map_wrap #menu_wrap .option button	{padding: 1px 0 8px 0;}
+
+.block_list	{position:relative; margin-top:15px; padding:15px 0 10px 0; display: inline-block; border-top:1px dashed #999;}
+.block_list .player_box	{width: 92%; margin: 0 auto; background: #eee; border-radius:100px 100px 0 0; padding:5px 0 4px 0; margin-bottom:8px;}
+.block_list .player_box p	{line-height:150%; font-size:11px; color:#999;}
+.block_list .player_box p.name	{font-size:13px;}
+.block_list	.player_box.green	{background: #caf4cd;}
+.block_list .player_box.green p	{color:#0e4d13;}
+.block_list	.player_box.green .player_photo	{border-color:#97dd9c;}
+.block_list .title	{top:-10px; left:0px; right:0px; font-size:18px; font-weight:bold; color:#0e4d13; text-align:center;}
+.block_list .title span	{padding:1px 5px; background-color:#fff;}
+
+.block_list.dual	{width:48%; margin:15px 0.75% 0 0.75%; vertical-align: top;}
+.block_list .team_posting .user_index	{font-size:11px; padding: 0 2%; height:33px;}
+.block_list .team_posting.gray .user_index	{color:#ccc;}
+.block_list .team_posting .user_index li	{line-height:17px;}
+.block_list .team_posting .user_photo	{height:28px; width:28px;}

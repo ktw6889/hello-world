@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nolja.menu">
+	
+	
+	<select id="nolja.menu.selectMyClubInfoList" parameterType="NoljaVO" resultType="NoljaClubInfoVO">
+		/* nolja.menu.selectMyClubInfoList */
+		SELECT
+		  D.*
+		  , CASE 
+		      WHEN D.RANK_POINT = 0 THEN @PREV_VALUE := 0
+		      WHEN @PREV_VALUE = D.RANK_POINT THEN @VRANK
+		      WHEN @PREV_VALUE := D.RANK_POINT THEN @VRANK := @VRANK + 1
+		    ELSE 0
+		    END AS RANK
+		FROM (
+		SELECT
+			T.INFOS
+			, T.CLUB_NAME
+			, IFNULL(T.SYMBOL,'default/symbol_noimg.png') AS SYMBOL
+			, T.CLUB_TYPE
+			, T.AREA1
+			, T.AREA2
+			, T.INTRO_IMAGE
+			, T.INTRO
+			, T.FEE
+			, (
+				SELECT COUNT(1) 
+				FROM NOLJA_CLUB_MEMBER_LINK 
+				WHERE CLUB_INFOS = T.INFOS 
+				AND MEMBER_AUTH != '요청'
+			) MEMBER_CNT
+			, IFNULL((
+			   SELECT 
+				    MAX(M.PHONE) 
+				FROM NOLJA_CLUB_MEMBER_LINK L, NOLJA_MEMBER_INFO M
+				WHERE L.CLUB_INFOS = T.INFOS
+				AND L.MEMBER_INFOS = M.INFOS
+				AND L.MEMBER_AUTH = '총무'
+			),(
+				SELECT 
+				    MAX(M.PHONE) 
+				FROM NOLJA_CLUB_MEMBER_LINK L, NOLJA_MEMBER_INFO M
+				WHERE L.CLUB_INFOS = T.INFOS
+				AND L.MEMBER_INFOS = M.INFOS
+				AND L.MEMBER_AUTH = '회장'
+			)) MANAGER_PHONE
+			, '' RANK_POINT
+			FROM NOLJA_CLUB_INFO T, NOLJA_CLUB_MEMBER_LINK L
+			WHERE T.DELETE_FLAG = 0
+			AND T.INFOS = L.CLUB_INFOS
+			AND L.MEMBER_INFOS = #{memberInfos}
+		)D , (SELECT @VRANK := 0, @PREV_VALUE := NULL) AS R		
+	</select>
+	
+	<select id="nolja.menu.searchClubInfoList" parameterType="NoljaVO" resultType="NoljaClubInfoVO">
+		/* nolja.menu.searchTeamInfoList */
+		SELECT * FROM (
+		  SELECT
+		    CEIL( (@ROWNUM:=@ROWNUM+1) / #{numPerPage} ) AS CURRPAGENUM , D.*
+		  FROM(
+		    SELECT 
+		    	(@ROWNO:=@ROWNO+1) AS ROW_NO , D.*
+		    FROM (
+			    SELECT
+			      D.* 
+			      , CASE 
+			          WHEN D.RANK_POINT = 0 THEN @PREV_VALUE := 0
+			          WHEN @PREV_VALUE = D.RANK_POINT THEN @VRANK
+			          WHEN @PREV_VALUE := D.RANK_POINT THEN @VRANK := @VRANK + 1
+			        ELSE 0
+			        END AS RANK
+			    FROM (
+				      SELECT
+				          T.INFOS
+				        , T.CLUB_NAME
+				        , IFNULL(T.SYMBOL,'default/symbol_noimg.png') AS SYMBOL
+				        , T.CLUB_TYPE
+				        , T.AREA1
+				        , T.AREA2
+				        , T.INTRO_IMAGE
+				        , T.INTRO
+				        , T.FEE
+				        , T.CREATE_DATE
+				        , (
+				            SELECT 
+				              COUNT(1) 
+				            FROM NOLJA_CLUB_MEMBER_LINK 
+				            WHERE CLUB_INFOS = T.INFOS 
+				            AND MEMBER_AUTH != '요청'
+				          ) MEMBER_CNT
+						, IFNULL((
+						   SELECT 
+							    MAX(M.PHONE) 
+							FROM NOLJA_CLUB_MEMBER_LINK L, NOLJA_MEMBER_INFO M
+							WHERE L.CLUB_INFOS = T.INFOS
+							AND L.MEMBER_INFOS = M.INFOS
+							AND L.MEMBER_AUTH = '총무'
+						),(
+							SELECT 
+							    MAX(M.PHONE) 
+							FROM NOLJA_CLUB_MEMBER_LINK L, NOLJA_MEMBER_INFO M
+							WHERE L.CLUB_INFOS = T.INFOS
+							AND L.MEMBER_INFOS = M.INFOS
+							AND L.MEMBER_AUTH = '회장'
+						)) MANAGER_PHONE
+						, (
+						   SELECT 
+							    'Y' AS MY_TEAM_FLAG
+							FROM NOLJA_CLUB_MEMBER_LINK L, NOLJA_MEMBER_INFO M
+							WHERE L.CLUB_INFOS = T.INFOS
+							AND L.MEMBER_INFOS = M.INFOS
+							AND M.INFOS = #{memberInfos}
+						) MY_TEAM_FLAG
+				        , (
+			                SELECT 
+			                  ROUND(AVG(FLOOR(((TO_DAYS(NOW())- TO_DAYS(STR_TO_DATE(MI.BIRTHDAY, '%Y-%m-%d')))/365))+1)) AS AGE
+			                FROM NOLJA_CLUB_MEMBER_LINK TL, NOLJA_MEMBER_INFO MI
+			                WHERE TL.MEMBER_INFOS = MI.INFOS
+			                AND TL.CLUB_INFOS = T.INFOS
+			              )AVG_AGE,
+				          0 AS RANK_POINT
+				      FROM NOLJA_CLUB_INFO T
+				      WHERE T.DELETE_FLAG = 0
+				      ORDER BY RANK_POINT DESC
+			    )D, (SELECT @VRANK := 0, @PREV_VALUE := NULL) AS R
+		    	<if test="(isFirst != null and isFirst != '') and isFirst.equals('ture')">
+      				ORDER BY RAND()
+        		</if>
+		    )D , (SELECT @ROWNO:=0) Z
+		    WHERE 1=1
+		    <if test="(searchType != null and searchType != '') and searchType.equals('AREA')">
+					AND D.AREA1 = #{memberArea1}
+          			AND D.AREA2 = #{memberArea2}
+				</if>
+				<if test="(searchType != null and searchType != '') and searchType.equals('OPEN')">
+					AND D.CLUB_TYPE = '공개'
+				</if>
+				<if test="(searchType != null and searchType != '') and searchType.equals('NEW')">
+					AND D.CREATE_DATE >= DATE(SUBDATE(NOW(), INTERVAL 30 DAY))
+				</if>
+				<if test="searchVal != null and searchVal != ''">
+					AND (
+						D.CLUB_NAME LIKE CONCAT('%',#{searchVal},'%') OR
+						D.AREA1 LIKE CONCAT('%',#{searchVal},'%') OR
+						D.AREA2 LIKE CONCAT('%',#{searchVal},'%') OR
+						D.INTRO LIKE CONCAT('%',#{searchVal},'%')
+					)
+				</if>
+				<if test="exceptInfos != null and exceptInfos != ''">
+					AND D.INFOS != #{exceptInfos}
+				</if>
+		  )D, (SELECT @ROWNUM:=0) Z
+		  ORDER BY ROW_NO DESC
+		)D
+		WHERE CURRPAGENUM = #{currPageNum}
+	</select>
+	
+	<select id="nolja.menu.countSearchClubInfoList" parameterType="NoljaVO" resultType="int">
+		/* nolja.menu.countSearchTeamInfoList */
+	    SELECT 
+			COUNT(*) AS TOTALRECORD
+		FROM NOLJA_CLUB_INFO T
+		WHERE T.DELETE_FLAG = 0
+		<if test="(searchType != null and searchType != '') and searchType.equals('AREA')">
+			AND T.AREA1 = #{memberArea1}
+   			AND T.AREA2 = #{memberArea2}	
+		</if>
+		<if test="(searchType != null and searchType != '') and searchType.equals('OPEN')">
+			AND T.TEAM_TYPE = '공개'
+		</if>
+		
+		<if test="(searchType != null and searchType != '') and searchType.equals('NEW')">
+			AND T.CREATE_DATE >= DATE(SUBDATE(NOW(), INTERVAL 30 DAY))
+		</if>
+		<if test="searchVal != null and searchVal != ''">
+			AND (
+				T.CLUB_NAME LIKE CONCAT('%',#{searchVal},'%') OR
+				T.AREA1 LIKE CONCAT('%',#{searchVal},'%') OR
+				T.AREA2 LIKE CONCAT('%',#{searchVal},'%') OR
+				T.INTRO LIKE CONCAT('%',#{searchVal},'%')
+			)
+		</if>
+		<if test="exceptInfos != null and exceptInfos != ''">
+			AND T.INFOS != #{exceptInfos}
+		</if>
+	</select>
+	
+	
+</mapper>

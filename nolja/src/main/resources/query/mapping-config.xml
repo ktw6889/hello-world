@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+	</settings>
+	<typeAliases>
+		<typeAlias alias="MemberInfoVO" type="com.ktw.nolja.common.vo.MemberInfoVO" />
+		<typeAlias alias="NoljaMemberInfoVO" type="com.ktw.nolja.club.vo.NoljaMemberInfoVO" />
+		<typeAlias alias="NoljaClubInfoVO" type="com.ktw.nolja.club.vo.NoljaClubInfoVO" />
+		<typeAlias alias="NoljaClubBoardVO" type="com.ktw.nolja.club.vo.NoljaClubBoardVO" />
+		<typeAlias alias="NoljaClubMessageVO" type="com.ktw.nolja.club.vo.NoljaClubMessageVO" />
+		<typeAlias alias="NoljaVO" type="com.ktw.nolja.club.vo.NoljaVO" />
+
+	</typeAliases>
+</configuration>

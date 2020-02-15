@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nolja.club">
+	
+	<select id="nolja.club.selectClubInfo" parameterType="Map" resultType="NoljaClubInfoVO">
+		/* nolja.club.selectClubInfo */
+		SELECT 
+			T.INFOS, T.INFOS AS CLUB_INFOS , T.CLUB_NAME, L.MEMBER_AUTH
+			, T.AREA1, T.AREA2,  T.INTRO 
+			, IFNULL(T.SYMBOL,'default/symbol_noimg.png') AS SYMBOL
+			, IFNULL(T.INTRO_IMAGE,'default/intro_noimg.png') AS INTRO_IMAGE
+			, 0 GAME_WIN
+			, 0 AS GAME_MANNER
+			, (
+				SELECT 
+				    MAX(MI.MEMBER_NAME)
+				FROM NOLJA_CLUB_MEMBER_LINK TL, NOLJA_MEMBER_INFO MI
+                WHERE TL.MEMBER_INFOS = MI.INFOS
+				AND TL.CLUB_INFOS = T.INFOS
+				AND TL.MEMBER_AUTH = '회장'
+			) AS TEAM_MANAGER_NAME
+			, IFNULL((
+				SELECT 
+				    MAX(MI.PICTURE)
+				FROM NOLJA_CLUB_MEMBER_LINK TL, NOLJA_MEMBER_INFO MI
+                WHERE TL.MEMBER_INFOS = MI.INFOS
+				AND TL.CLUB_INFOS = T.INFOS
+				AND TL.MEMBER_AUTH = '회장'
+			),'default/player_noimg.png') AS TEAM_MANAGER_PICTURE
+			, (
+				SELECT
+				    CONCAT(
+				        SUM(IF(AGE=0,1,0))+SUM(IF(AGE=1,1,0)),':'
+				        , SUM(IF(AGE=2,1,0)),':'
+				        , SUM(IF(AGE=3,1,0)),':'
+				        , SUM(IF(AGE=4,1,0)),':'
+				        , SUM(IF(AGE=5,1,0)),':'
+				        , SUM(IF(AGE=6,1,0))+SUM(IF(AGE=7,1,0))+SUM(IF(AGE=8,1,0))+SUM(IF(AGE=9,1,0))
+				    ) AS AGE
+				FROM (
+				    SELECT 
+				        TL.CLUB_INFOS, FLOOR((Floor(((TO_DAYS(NOW())- TO_DAYS(STR_TO_DATE(MI.BIRTHDAY, '%Y-%m-%d')))/365))+1)/10) AS AGE
+				    FROM NOLJA_CLUB_MEMBER_LINK TL, NOLJA_MEMBER_INFO MI
+				    WHERE TL.MEMBER_INFOS = MI.INFOS
+				    <if test="clubInfos != null and clubInfos != ''">
+						AND TL.CLUB_INFOS = #{clubInfos}
+					</if>
+				) T
+				WHERE CLUB_INFOS = T.INFOS
+				GROUP BY CLUB_INFOS
+			) AS MEMBER_AGE
+		FROM (
+		    SELECT T.* FROM NOLJA_CLUB_INFO T 
+		    WHERE T.DELETE_FLAG = 0  
+		    <if test="clubInfos != null and clubInfos != ''">
+				AND T.INFOS = #{clubInfos}
+			</if>
+			<if test="clubName != null and clubName != ''">
+				AND T.CLUB_NAME = #{clubName}
+			</if>
+		) T
+		LEFT JOIN NOLJA_CLUB_MEMBER_LINK L 
+		ON T.INFOS = L.CLUB_INFOS 
+		<if test="memberInfos != null and memberInfos != ''">
+			AND L.MEMBER_INFOS = #{memberInfos}
+		</if>
+	</select>
+	
+	<select id="nolja.club.selectClubInfo.detail" parameterType="Map" resultType="NoljaClubInfoVO">
+		/* nolja.club.selectClubInfo.detail */
+		SELECT
+		    T.INFOS
+			, T.CLUB_NAME
+			, T.SYMBOL
+			, T.CLUB_TYPE
+			, T.AREA1
+			, T.AREA2
+			, T.LAT_POSITION
+			, T.LNG_POSITION
+			, T.INTRO
+			, T.FEE
+			, IFNULL(T.SYMBOL,'default/symbol_noimg.png') AS SYMBOL
+			, IFNULL(T.INTRO_IMAGE,'default/intro_noimg.png') AS INTRO_IMAGE
+		FROM NOLJA_CLUB_INFO T
+		WHERE T.DELETE_FLAG = 0
+		AND T.INFOS = #{infos}
+	</select>
+	
+	<select id="nolja.club.checkClubInfo" parameterType="Map" resultType="String">
+		/* nolja.club.checkClubInfo */
+		SELECT 
+			T.INFOS
+		FROM NOLJA_CLUB_INFO T
+		WHERE T.DELETE_FLAG = 0
+		<if test="infos != null and infos != ''">
+			AND T.INFOS != #{infos}
+		</if>
+		AND T.CLUB_NAME = #{clubName}
+	</select>
+	
+	<insert id="nolja.club.insertClubInfo" parameterType="NoljaClubInfoVO">
+		/* nolja.club.insertClubInfo */
+		INSERT INTO NOLJA_CLUB_INFO (
+		    INFOS, CREATE_INFOS, MODIFY_INFOS, CLUB_NAME, SYMBOL, AREA1, AREA2
+		    ,CLUB_TYPE , INTRO_IMAGE, INTRO, FEE
+		) VALUES (
+		    #{infos}, #{createInfos}, #{modifyInfos}, #{clubName}, #{symbol}, #{area1}, #{area2} 
+		    , #{clubType},  #{introImage}, #{intro}, #{fee}
+		)
+	</insert>
+	
+	<insert id="nolja.club.insertClubMemberLink" parameterType="NoljaClubInfoVO">
+		/* nolja.club.insertClubMemberLink */
+		INSERT INTO NOLJA_CLUB_MEMBER_LINK (
+		    MEMBER_INFOS, CLUB_INFOS, CREATE_INFOS, MODIFY_INFOS, MEMBER_AUTH
+		    , SEQ
+		) VALUES (
+		    #{createInfos}, #{clubInfos}, #{createInfos}, #{modifyInfos}, #{memberAuth}
+		    , (
+		    	SELECT SEQ 
+		    	FROM (
+			    	SELECT IFNULL(MAX(SEQ),0)+1 AS SEQ
+					FROM NOLJA_CLUB_MEMBER_LINK 
+					WHERE CLUB_INFOS = #{clubInfos}
+				) A
+		    )
+		)
+	</insert>
+	
+	<select id="nolja.club.selectClubMemberLink" parameterType="Map" resultType="NoljaClubInfoVO">
+		/* nolja.club.selectClubMemberLink */
+		SELECT
+		    L.CLUB_INFOS AS INFOS, MEMBER_AUTH, SEQ
+		FROM NOLJA_CLUB_MEMBER_LINK L
+		WHERE L.CLUB_INFOS = #{clubInfos}
+		AND L.MEMBER_INFOS = #{memberInfos}
+	</select>
+	
+	<select id="nolja.club.updateClubMemberLink" parameterType="MemberInfoVO">
+		/* nolja.club.updateClubMemberLink */
+		UPDATE NOLJA_CLUB_MEMBER_LINK
+    	SET MODIFY_DATE = NOW()
+    		, MODIFY_INFOS = #{modifyInfos}
+    		<if test="memberAuth != null and memberAuth != ''">
+    			, MEMBER_AUTH = #{memberAuth}
+    		</if>
+    		<if test="createInfos != null and createInfos != ''">
+	    		, CREATE_DATE = NOW()
+	    		, CREATE_INFOS = #{createInfos}
+	    	</if>
+	    	<if test="seq != null and seq != ''">
+	    		, SEQ = #{seq}
+	    	</if>
+		WHERE CLUB_INFOS = #{clubInfos}
+		AND MEMBER_INFOS = #{infos}
+	</select>
+	
+	<update id="nolja.club.updateClubInfo" parameterType="NoljaClubInfoVO">
+		/* nolja.club.updateTeamInfo */
+		UPDATE NOLJA_CLUB_INFO
+	    SET MODIFY_DATE = NOW()
+	    	, MODIFY_INFOS = #{modifyInfos}
+	    	<if test="symbol != null and symbol != ''">
+	    		, SYMBOL = #{symbol}
+	    	</if>
+	    	<if test="introImage != null and introImage != ''">
+	    		, INTRO_IMAGE = #{introImage}
+	    	</if>
+	    	, AREA1 = #{area1}
+	    	, AREA2 = #{area2}
+	    	, CLUB_TYPE = #{clubType}
+	    	, INTRO = #{intro}
+	    	, FEE = #{fee}
+	    WHERE INFOS = #{infos}
+	</update>
+	
+	<update id="nolja.club.deleteClubInfo" parameterType="Map">
+		/* nolja.club.deleteTeamInfo */
+	    UPDATE NOLJA_CLUB_INFO
+	    SET MODIFY_DATE = NOW()
+	    	, DELETE_FLAG = 1
+	    WHERE INFOS = #{infos}
+	</update>
+	
+	<select id="nolja.club.selectClubMemberList" parameterType="NoljaVO" resultType="MemberInfoVO">
+		/* nolja.club.selectTeamMemberList */
+		SELECT 
+			M.INFOS, M.MEMBER_NAME, L.MEMBER_AUTH
+			, CONCAT(LEFT(M.PHONE,3),'-',MID(M.PHONE,4,LENGTH(M.PHONE)-7),'-',RIGHT(M.PHONE,4)) AS PHONE
+			, Floor(((TO_DAYS(NOW())- TO_DAYS(STR_TO_DATE(M.BIRTHDAY, '%Y-%m-%d')))/365))+1 AS AGE
+			, 0 AS GOOD_POINT
+		    , IFNULL(M.PICTURE,'default/player_noimg.png') AS PICTURE
+		    , IF(L.CREATE_DATE > DATE_ADD(NOW(), INTERVAL - 7 DAY),1,0) NEW_FLAG
+		    , L.SEQ  
+		FROM NOLJA_MEMBER_INFO M, NOLJA_CLUB_MEMBER_LINK L
+		WHERE M.DELETE_FLAG = 0
+		AND M.INFOS = L.MEMBER_INFOS
+		AND L.CLUB_INFOS = #{clubInfos}
+		ORDER BY L.SEQ
+	</select>
+	
+	
+	<select id="nolja.club.selectMemberInfoList" parameterType="Map" resultType="MemberInfoVO">
+		/* nolja.club.selectMemberInfoList */
+		SELECT 
+		    M.GCM_ID, M.INFOS
+		FROM NOLJA_CLUB_MEMBER_LINK L, NOLJA_MEMBER_INFO M
+		WHERE L.MEMBER_INFOS = M.INFOS
+		AND L.CLUB_INFOS = #{clubInfos}
+		<if test="memberInfos != null and memberInfos != ''">
+			AND M.INFOS != #{memberInfos}
+			AND L.MEMBER_AUTH != '요청'
+		</if>
+		<if test="managerFlag != null and managerFlag != ''">
+			AND L.MEMBER_AUTH IN ('회장','총무')
+		</if>
+		<if test="myInfos != null and myInfos != ''">
+			AND M.INFOS != #{myInfos}
+		</if>
+		AND M.DELETE_FLAG = 0
+		AND M.PUSH_FLAG = 'Y'
+		AND M.GCM_ID IS NOT NULL
+	</select>
+	
+	<select id="nolja.club.selectClubBoardList" parameterType="NoljaVO" resultType="NoljaClubBoardVO">
+		/* nolja.club.selectClubBoardList */
+		SELECT 
+		    B.ROW_NO , CURRPAGENUM
+		    , B.INFOS, B.NOTICE_TYPE, DATE_FORMAT(B.CREATE_DATE, '%Y-%m-%d') CREATE_DATE, B.CONTENT
+		    , B.MEMBER_NAME, B.MEMBER_AUTH
+		    , B.ATTACH_PICTURE
+		    , IFNULL(B.PICTURE,'default/player_noimg.png') AS PICTURE
+		  FROM (
+		    SELECT 
+		        CEIL( (@ROWNUM:=@ROWNUM+1) / #{numPerPage} ) AS CURRPAGENUM
+		        , B.* 
+		    FROM (
+		    	SELECT
+					AA.*,
+					CASE
+					WHEN CREATE_DATE = MAX_DATE THEN 'NOTICE'
+					ELSE CASE WHEN MAX_DATE IS NULL THEN ROWNUM ELSE ROWNUM+1 END
+					END ROW_NO
+		   		FROM(
+					SELECT
+						AA.* , (@ROWNO:=@ROWNO+1) AS ROWNUM
+					FROM(
+						SELECT
+							AA.*, (SELECT MAX(MODIFY_DATE) FROM NOLJA_CLUB_BOARD B WHERE B.CLUB_INFOS = #{clubInfos} AND B.NOTICE_TYPE='공지') MAX_DATE
+						FROM (
+							SELECT
+								B.*, L.MEMBER_AUTH, I.MEMBER_NAME, I.PICTURE
+							FROM NOLJA_CLUB_BOARD B, NOLJA_CLUB_MEMBER_LINK L, NOLJA_MEMBER_INFO I
+							WHERE B.DELETE_FLAG = 0
+							AND B.CLUB_INFOS = L.CLUB_INFOS
+							AND B.BOARD_TYPE = #{boardType}
+							AND B.CLUB_INFOS = #{clubInfos}
+							AND B.CREATE_INFOS = L.MEMBER_INFOS
+							AND L.MEMBER_INFOS = I.INFOS
+							ORDER BY CREATE_DATE
+						)AA
+					)AA , (SELECT @ROWNO:=0) Z
+				)AA
+		    ) B, (SELECT @ROWNUM:=0) Z
+			ORDER BY ROW_NO DESC
+		  ) B
+		  WHERE CURRPAGENUM = #{currPageNum}
+		  ORDER BY ROW_NO DESC
+	</select>
+	
+	
+	<select id="nolja.club.countClubBoardList" parameterType="NoljaVO" resultType="int">
+		/* nolja.club.countClubBoardList */
+		SELECT 
+			COUNT(*) AS TOTALRECORD
+		FROM NOLJA_CLUB_BOARD B
+		WHERE B.DELETE_FLAG = 0
+		AND B.BOARD_TYPE = #{boardType}
+		AND B.CLUB_INFOS = #{clubInfos}
+	</select>
+	
+	<select id="nolja.club.selectClubBoard" parameterType="Map" resultType="NoljaClubBoardVO">
+		/* nolja.club.selectClubBoard */
+		SELECT B.*
+		FROM (
+			SELECT B.*
+			FROM NOLJA_CLUB_BOARD B
+			WHERE B.DELETE_FLAG = 0
+			AND B.INFOS = #{infos}
+		) B
+	</select>
+	
+	<insert id="nolja.club.insertClubBoard" parameterType="NoljaClubBoardVO">
+		/* nolja.club.insertClubBoard */
+		INSERT INTO NOLJA_CLUB_BOARD (
+		    INFOS, CREATE_INFOS, MODIFY_INFOS, CLUB_INFOS, BOARD_TYPE, NOTICE_TYPE, CONTENT, ATTACH_PICTURE
+		) VALUES (
+		    #{infos}, #{createInfos}, #{modifyInfos}, #{clubInfos}, #{boardType}, #{noticeType}, #{content}, #{attachPicture} 
+		)
+	</insert>
+	
+	<update id="nolja.club.updateClubBoard" parameterType="NoljaClubBoardVO">
+		/* nolja.club.updateClubBoard */
+		UPDATE NOLJA_CLUB_BOARD
+	    SET MODIFY_DATE = NOW()
+	    	, MODIFY_INFOS = #{modifyInfos}
+	    	, NOTICE_TYPE = #{noticeType}
+	    	, CONTENT = #{content}
+	    WHERE INFOS = #{infos}
+	</update>
+	
+	<update id="nolja.club.deleteClubBoard" parameterType="Map">
+		/* nolja.club.deleteClubBoard */
+	    UPDATE NOLJA_CLUB_BOARD
+	    SET MODIFY_DATE = NOW()
+	    	, DELETE_FLAG = 1
+	    WHERE INFOS = #{infos}
+	</update>
+	
+		
+	<select id="nolja.club.selectClubMessageList" parameterType="NoljaVO" resultType="NoljaClubMessageVO">
+		/* nolja.club.selectClubMessageList */
+		SELECT 
+		    M.*
+		FROM (
+		    SELECT 
+		        CEIL( (@ROWNUM:=@ROWNUM+1) / #{numPerPage} ) AS CURRPAGENUM
+		        , M.* 
+		    FROM (
+	            SELECT M.*, (@ROWNO:=@ROWNO+1) AS ROW_NO
+	            FROM (
+					SELECT 
+					    M.INFOS, M.CREATE_DATE
+					    , DATE_FORMAT(M.CREATE_DATE, '%Y년 %m월 %d일') AS MESSAGE_DATE
+					    , DATE_FORMAT(M.CREATE_DATE, '%H:%i') AS MESSAGE_TIME
+					    , IF(M.MESSAGE_TYPE = 'TALK' AND MI.INFOS = '${memberInfos}','Y','N') AS MY_FLAG
+					    , M.MESSAGE_TYPE, M.MESSAGE
+					    , MI.INFOS AS MEMBER_INFOS, MI.MEMBER_NAME
+					    , IFNULL(MI.PICTURE,'default/player_noimg.png') AS MEMBER_PICTURE
+						, (
+							0
+						) AS MEMBER_READ_CNT
+					FROM NOLJA_CLUB_MESSAGE M LEFT JOIN NOLJA_MEMBER_INFO MI
+					ON M.MEMBER_INFOS = MI.INFOS
+					, (SELECT @ROWNO:=0) Z
+					WHERE M.DELETE_FLAG = 0
+					AND M.CLUB_INFOS = #{clubInfos}
+					<if test="startMessageInfos != null and startMessageInfos != ''">
+						<![CDATA[
+						AND M.INFOS <= #{startMessageInfos}
+						]]>	
+					</if>
+					ORDER BY M.CREATE_DATE
+	            ) M
+		    ) M, (SELECT @ROWNUM:=0) Z
+			ORDER BY ROW_NO DESC
+		) M
+		WHERE CURRPAGENUM = #{currPageNum}
+		ORDER BY ROW_NO DESC
+	</select>
+	
+	<select id="nolja.club.countClubMessageList" parameterType="NoljaVO" resultType="int">
+		/* nolja.club.countClubMessageList */
+		SELECT 
+			COUNT(*) AS TOTALRECORD
+		FROM NOLJA_CLUB_MESSAGE M
+		WHERE M.DELETE_FLAG = 0
+		AND M.CLUB_INFOS = #{clubInfos}
+		<if test="startMessageInfos != null and startMessageInfos != ''">
+			<![CDATA[
+			AND M.INFOS <= #{startMessageInfos}
+			]]>	
+		</if>
+	</select>
+	
+	<select id="nolja.club.selectClubMessageListEnd" parameterType="NoljaVO" resultType="NoljaClubMessageVO">
+		<![CDATA[
+		/* nolja.club.selectClubMessageListEnd */
+		SELECT 
+		    M.INFOS, M.CREATE_DATE
+		    , DATE_FORMAT(M.CREATE_DATE, '%Y년 %m월 %d일') AS MESSAGE_DATE
+		    , DATE_FORMAT(M.CREATE_DATE, '%H:%i') AS MESSAGE_TIME
+		    , IF(M.MESSAGE_TYPE = 'TALK' AND MI.INFOS = '${memberInfos}','Y','N') AS MY_FLAG
+		    , M.MESSAGE_TYPE, M.MESSAGE
+		    , MI.INFOS AS MEMBER_INFOS, MI.MEMBER_NAME
+		    , IFNULL(MI.PICTURE,'default/player_noimg.png') AS MEMBER_PICTURE
+			, (
+				0
+			) AS MEMBER_READ_CNT
+		FROM NOLJA_CLUB_MESSAGE M LEFT JOIN NOLJA_MEMBER_INFO MI
+		ON M.MEMBER_INFOS = MI.INFOS
+		WHERE M.DELETE_FLAG = 0
+		AND M.CLUB_INFOS = #{clubInfos}
+		AND M.INFOS > #{endMessageInfos}
+		ORDER BY M.CREATE_DATE
+		]]>
+	</select>
+	
+	<insert id="nolja.club.insertClubMessage" parameterType="NoljaClubMessageVO">
+		/* nolja.club.insertClubMessage */
+		INSERT INTO NOLJA_CLUB_MESSAGE (
+		    INFOS, CREATE_INFOS, CLUB_INFOS, MEMBER_INFOS, MESSAGE_TYPE, MESSAGE
+		) VALUES (
+		    #{infos}, #{createInfos}, #{clubInfos}, #{memberInfos}, #{messageType}, #{message}
+		)
+	</insert>
+	
+</mapper>

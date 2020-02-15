@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+						http://www.springframework.org/schema/util 
+						http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+	
+	<!-- 다국어 지원을 위한 설정 브라우저의 AcceptHeader를 이용하여 다국어 설정을 지원한다. -->
+ 	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver"></bean>
+
+ 	<!-- 리소스 디렉토리 아래의 message.properties를 MessageSource에 포함시킨다. -->
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="classpath:message/message"/>
+		<property name="defaultEncoding" value="UTF-8" />
+		<property name="cacheSeconds" value="60"/>
+	</bean>
+
+	<!-- Spring Framework 이내에서 예외가 발생한 경우 지정한 클래스에서 처리한다. -->
+    <bean id="exceptionMapping" class="com.ktw.nolja.common.exception.CommonExceptionResolver"></bean>
+    
+    <util:properties id="configProperties" location="classpath:config.properties"/>
+</beans>

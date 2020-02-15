@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nolja.main">	
+	
+	<select id="nolja.main.selectMemberInfo" parameterType="Map" resultType="MemberInfoVO">
+		/* nolja.main.selectMemberInfo */
+		SELECT
+		    M.INFOS
+		    , '' AS MEMBER_AUTH
+		    , M.MEMBER_NAME
+		    , M.EMAIL AS MEMBER_ID
+		    , '' AS CLUB_INFOS
+		    , AREA1, AREA2
+		    , M.PUSH_FLAG
+			, M.GCM_ID
+		FROM NOLJA_MEMBER_INFO M
+		WHERE M.DELETE_FLAG = 0
+		<if test="email != null and email != ''">
+			AND M.EMAIL = #{email}
+		</if>
+		<if test="password != null and password != ''">
+			AND M.PASSWORD = #{password}
+		</if>
+		<if test="infos != null and infos != ''">
+			AND M.INFOS = #{infos}
+		</if>
+		<if test="phone != null and phone != ''">
+			AND M.PHONE = #{phone}
+		</if>
+	</select>
+	
+	<select id="nolja.main.selectMemberInfo.detail" parameterType="Map" resultType="NoljaMemberInfoVO">		
+		/* nolja.main.selectMemberInfo.detail */
+		SELECT
+		    M.INFOS
+		    , M.MEMBER_NAME
+			, M.EMAIL
+			, M.PHONE
+			, M.PICTURE
+			, M.BIRTHDAY
+			, M.AREA1
+			, M.AREA2
+			, M.PROFILE
+			, M.CLUB_INFOS
+			, M.PUSH_FLAG
+			, M.GCM_ID
+		FROM NOLJA_MEMBER_INFO M
+		WHERE M.DELETE_FLAG = 0
+		AND M.INFOS = #{infos}
+	</select>
+	
+	<select id="nolja.main.selectMemberInfoFind" parameterType="Map" resultType="MemberInfoVO">
+		/* nolja.main.selectMemberInfoFind */
+		SELECT
+		    M.INFOS
+		    , (
+				SELECT MAX(MEMBER_AUTH) 
+				FROM T_SC_MEMBER_TEAM_LINK
+				WHERE MEMBER_INFOS = M.INFOS
+				AND CLUB_INFOS = M.CLUB_INFOS
+		    ) AS MEMBER_AUTH
+		    , M.MEMBER_NAME
+		    , M.EMAIL AS MEMBER_ID
+		    , M.CLUB_INFOS AS CLUB_INFOS
+		FROM NOLJA_MEMBER_INFO M
+		WHERE M.DELETE_FLAG = 0
+		AND M.MEMBER_NAME = #{memberName}
+		AND M.PHONE = #{phone}
+	</select>
+	
+	<select id="nolja.main.checkMemberInfo" parameterType="Map" resultType="String">
+		/* nolja.main.checkMemberInfo */
+		SELECT 
+			INFOS
+		FROM NOLJA_MEMBER_INFO M
+		WHERE DELETE_FLAG = 0
+		<if test="infos != null and infos != ''">
+			AND INFOS != #{infos}
+		</if>
+		AND EMAIL = #{email}
+	</select>
+	
+	<insert id="nolja.main.insertMemberInfo" parameterType="NoljaMemberInfoVO">
+		/* nolja.main.insertMemberInfo */
+		INSERT INTO NOLJA_MEMBER_INFO (
+		    INFOS, MEMBER_NAME, EMAIL, PASSWORD, PHONE, PICTURE
+		    , BIRTHDAY, AREA1, AREA2, PROFILE
+		) VALUES (
+		    #{infos}, #{memberName}, #{email}, #{password}, #{phone}, #{picture}
+		    , #{birthday}, #{area1}, #{area2}, #{profile}
+		)
+	</insert>
+	
+	<update id="nolja.main.updateMemberInfo" parameterType="NoljaMemberInfoVO">
+		/* nolja.main.updateMemberInfo */
+		UPDATE NOLJA_MEMBER_INFO
+	    SET MODIFY_DATE = NOW()
+	    	, PHONE = #{phone}
+	    	<if test="password != null and password != ''">
+	    		, PASSWORD = #{password}
+	    	</if>
+	    	<if test="picture != null and picture != ''">
+	    		, PICTURE = #{picture}
+	    	</if>
+	    	, BIRTHDAY = #{birthday}
+	    	, AREA1 = #{area1}
+	    	, AREA2 = #{area2}
+	    	, PROFILE = #{profile}
+	    WHERE INFOS = #{infos}
+	</update>
+	
+	<update id="nolja.main.deleteMemberInfo" parameterType="Map">
+		/* nolja.main.deleteMemberInfo */
+	    UPDATE NOLJA_MEMBER_INFO
+	    SET MODIFY_DATE = NOW()
+	    	, DELETE_FLAG = 1
+	    WHERE INFOS = #{infos}
+	</update>
+	
+	<update id="nolja.main.updateMemberInfoclubInfos" parameterType="Map">
+		/* nolja.main.updateMemberInfoclubInfos */
+		UPDATE NOLJA_MEMBER_INFO
+	    SET MODIFY_DATE = NOW()
+	    	, CLUB_INFOS = #{clubInfos}
+	    WHERE INFOS = #{infos}
+	</update>
+	
+
+	
+	<update id="nolja.main.updateMemberInfoPassword" parameterType="Map">
+		/* nolja.main.updateMemberInfoPassword */
+		UPDATE NOLJA_MEMBER_INFO
+	    SET MODIFY_DATE = NOW()
+	    	, PASSWORD = #{password}
+	    WHERE INFOS = #{infos}
+	</update>
+	
+	<update id="nolja.main.updateMemberImage" parameterType="NoljaMemberInfoVO">
+		/* nolja.main.updateMemberImage */
+		UPDATE NOLJA_MEMBER_INFO
+	    SET MODIFY_DATE = NOW()
+	    	<if test="picture != null and picture != ''">
+	    		, PICTURE = #{picture}
+	    	</if>
+	    WHERE INFOS = #{infos}
+	</update>
+	<!-- 
+	
+	
+		<insert id="nolja.main.insertSysLog" parameterType="Map">
+		/* nolja.main.insertSysLog */
+		INSERT INTO T_SC_SYS_LOG (
+		    LOG_DAY, MEMBER_INFOS, CLUB_INFOS, GAME_INFOS, PAGE_URL
+		) VALUES (
+		    DATE_FORMAT(NOW(), '%Y%m%d'), #{memberInfos}, #{clubInfos}, #{gameInfos}, #{pageUrl}
+		)
+	</insert>
+	
+	<update id="nolja.main.updateTeamImage" parameterType="ScTeamInfoVO">
+		/* nolja.main.updateTeamImage */
+		UPDATE T_SC_TEAM_INFO
+	    SET MODIFY_DATE = NOW()
+	    	<if test="symbol != null and symbol != ''">
+	    		, SYMBOL = #{symbol}
+	    	</if>
+	    	<if test="introImage != null and introImage != ''">
+	    		, INTRO_IMAGE = #{introImage}
+	    	</if>
+	    WHERE INFOS = #{infos}
+	</update>
+	
+	<update id="nolja.main.updateNoticeImage" parameterType="ScTeamBoardVO">
+		/* nolja.main.updateNoticeImage */
+		UPDATE T_SC_TEAM_BOARD
+	    SET MODIFY_DATE = NOW()
+	    	<if test="attachPicture != null and attachPicture != ''">
+	    		, ATTACH_PICTURE = #{attachPicture}
+	    	</if>
+	    WHERE INFOS = #{infos}
+	</update>
+	 -->
+	<update id="nolja.main.updateMemberInfoGcmId" parameterType="Map">
+		/* nolja.main.updateMemberInfoGcmId */
+		UPDATE NOLJA_MEMBER_INFO
+	    SET MODIFY_DATE = NOW()
+	    	, GCM_ID = #{token}
+	    WHERE INFOS = #{memberInfos}
+	</update>
+	
+	<update id="nolja.main.updateMemberInfoClubInfos" parameterType="Map">
+		/* nolja.main.updateMemberInfoClubInfos */
+		UPDATE NOLJA_MEMBER_INFO
+	    SET MODIFY_DATE = NOW()
+	    	, CLUB_INFOS = #{clubInfos}
+	    WHERE INFOS = #{infos}
+	</update>
+</mapper>
